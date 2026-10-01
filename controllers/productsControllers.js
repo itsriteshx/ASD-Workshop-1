@@ -30,4 +30,15 @@ async function getProductById(req, res) {
     }
 }
 
-module.exports = {getProducts,getProductById}
+async function createProduct(req, res) {
+    try {
+        const product = await productService.createProduct(req.body)
+        cache.clearCache()
+        res.status(201).json(product)
+    } catch (error) {
+        res.status(500).json({
+            message: "Server Error"
+        })
+    }
+}
+module.exports = {getProducts,getProductById,createProduct}

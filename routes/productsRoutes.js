@@ -5,10 +5,12 @@ const { cacheMiddleware } = require("../middleware/cacheMiddleware")
 router.get("/product",
     cacheMiddleware,
     productController.getProducts
-
 )
 router.get("/product/:id",
     cacheMiddleware,
     productController.getProductById
+)
+router.post("/product",
+    productController.createProduct
 )
 module.exports = router
