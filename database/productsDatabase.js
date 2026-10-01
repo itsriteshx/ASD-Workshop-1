@@ -15,4 +15,27 @@ async function createProduct(product) {
     )
     return product
 }
-module.exports = {getProducts,createProduct}
+
+async function updateProduct(id, updatedProduct) {
+    const products = await getProducts()
+    const index = products.findIndex(x => x.id === id)
+
+    if (index === -1) {
+        return null
+    }
+
+    products[index] = updatedProduct
+
+    await fs.promises.writeFile(
+        filepath,
+        JSON.stringify(products, null, 2)
+    )
+
+    return updatedProduct
+}
+
+module.exports = {
+    getProducts,
+    createProduct,
+    updateProduct
+}

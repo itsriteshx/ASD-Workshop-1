@@ -18,4 +18,19 @@ async function createProduct(product) {
     }
     return await database.createProduct(newProduct)
 }
-module.exports = {getAllProducts,getProductById,createProduct}
+async function updateProduct(id, product) {
+    const updatedProduct = {
+        id: id,
+        name: product.name,
+        price: product.price
+    }
+
+    return await database.updateProduct(id, updatedProduct)
+}
+
+module.exports = {
+    getAllProducts,
+    getProductById,
+    createProduct,
+    updateProduct
+}
