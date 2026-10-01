@@ -12,7 +12,6 @@ async function createProduct(product) {
     const products = await database.getProducts()
     const newProduct = {
         id: products.length + 1,
-
         name: product.name,
         price: product.price
     }
@@ -28,9 +27,19 @@ async function updateProduct(id, product) {
     return await database.updateProduct(id, updatedProduct)
 }
 
+async function patchProduct(id, updates) {
+    return await database.patchProduct(id, updates)
+}
+
+async function deleteProduct(id) {
+    return await database.deleteProduct(id)
+}
+
 module.exports = {
     getAllProducts,
     getProductById,
     createProduct,
-    updateProduct
+    updateProduct,
+    patchProduct,
+    deleteProduct
 }

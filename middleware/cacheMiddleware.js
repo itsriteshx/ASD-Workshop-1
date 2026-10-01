@@ -21,7 +21,6 @@ function setCache(key, data) {
         createdAt: Date.now()
     }
 }
-
 function clearCache() {
     for (const key in cache) {
         delete cache[key]

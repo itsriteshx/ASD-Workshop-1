@@ -34,8 +34,45 @@ async function updateProduct(id, updatedProduct) {
     return updatedProduct
 }
 
+async function patchProduct(id, updates) {
+    const products = await getProducts()
+    const index = products.findIndex(x => x.id === id)
+    if (index === -1) {
+        return null
+    }
+    products[index] = {
+        ...products[index],
+        ...updates
+    }
+
+    await fs.promises.writeFile(
+        filepath,
+        JSON.stringify(products, null, 2)
+    )
+
+    return products[index]
+}
+
+async function deleteProduct(id) {
+    const products = await getProducts()
+    const filteredProducts = products.filter(x => x.id !== id)
+
+    if (filteredProducts.length === products.length) {
+        return false
+    }
+
+    await fs.promises.writeFile(
+        filepath,
+        JSON.stringify(filteredProducts, null, 2)
+    )
+
+    return true
+}
+
 module.exports = {
     getProducts,
     createProduct,
-    updateProduct
+    updateProduct,
+    patchProduct,
+    deleteProduct
 }
